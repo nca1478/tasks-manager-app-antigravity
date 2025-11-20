@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { User } from '@domain/entities/user.entity';
-import { UserRepository } from '@domain/repositories/user.repository';
-import { PrismaService } from '../database/prisma.service';
+import { Injectable } from "@nestjs/common";
+import { User } from "@domain/entities/user.entity";
+import { UserRepository } from "@domain/repositories/user.repository";
+import { PrismaService } from "../database/prisma.service";
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -23,7 +23,7 @@ export class PrismaUserRepository implements UserRepository {
       created.password,
       created.name,
       created.createdAt,
-      created.updatedAt,
+      created.updatedAt
     );
   }
 
@@ -40,7 +40,7 @@ export class PrismaUserRepository implements UserRepository {
       user.password,
       user.name,
       user.createdAt,
-      user.updatedAt,
+      user.updatedAt
     );
   }
 
@@ -57,7 +57,7 @@ export class PrismaUserRepository implements UserRepository {
       user.password,
       user.name,
       user.createdAt,
-      user.updatedAt,
+      user.updatedAt
     );
   }
 
@@ -72,8 +72,8 @@ export class PrismaUserRepository implements UserRepository {
           user.password,
           user.name,
           user.createdAt,
-          user.updatedAt,
-        ),
+          user.updatedAt
+        )
     );
   }
 
@@ -83,6 +83,7 @@ export class PrismaUserRepository implements UserRepository {
       data: {
         email: user.email,
         name: user.name,
+        password: user.password,
         updatedAt: new Date(),
       },
     });
@@ -93,7 +94,7 @@ export class PrismaUserRepository implements UserRepository {
       updated.password,
       updated.name,
       updated.createdAt,
-      updated.updatedAt,
+      updated.updatedAt
     );
   }
 
