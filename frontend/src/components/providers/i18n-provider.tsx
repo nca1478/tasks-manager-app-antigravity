@@ -14,7 +14,11 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const locale = useLanguageStore((state) => state.locale);
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages[locale]}>
+    <NextIntlClientProvider
+      locale={locale}
+      messages={messages[locale]}
+      timeZone="America/New_York"
+    >
       {children}
     </NextIntlClientProvider>
   );

@@ -6,5 +6,6 @@ export default getRequestConfig(async () => {
   return {
     locale,
     messages: (await import(`./messages/${locale}.json`)).default,
+    timeZone: "America/New_York", // Configura tu zona horaria preferida
   };
 });
