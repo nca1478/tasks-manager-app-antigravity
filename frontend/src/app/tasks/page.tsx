@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/application/stores/auth.store";
 import { useTasks } from "@/application/hooks/use-tasks";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
@@ -13,6 +14,7 @@ import { Plus, Loader2 } from "lucide-react";
 
 export default function TasksPage() {
   const router = useRouter();
+  const t = useTranslations();
   const { isAuthenticated, _hasHydrated } = useAuthStore();
   const { data: tasks, isLoading } = useTasks();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -35,18 +37,18 @@ export default function TasksPage() {
 
   return (
     <DashboardLayout>
-      <Header title="Tasks" />
+      <Header title={t("tasks.title")} />
       <div className="p-6">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h3 className="text-lg font-semibold">All Tasks</h3>
+            <h3 className="text-lg font-semibold">{t("tasks.title")}</h3>
             <p className="text-sm text-muted-foreground">
-              Manage and organize your tasks
+              {t("dashboard.overview")}
             </p>
           </div>
           <Button onClick={() => setIsCreateOpen(true)}>
             <Plus className="h-4 w-4 mr-2" />
-            New Task
+            {t("tasks.newTask")}
           </Button>
         </div>
 
@@ -62,10 +64,10 @@ export default function TasksPage() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-muted-foreground mb-4">No tasks yet</p>
+            <p className="text-muted-foreground mb-4">{t("tasks.noTasks")}</p>
             <Button onClick={() => setIsCreateOpen(true)}>
               <Plus className="h-4 w-4 mr-2" />
-              Create your first task
+              {t("tasks.newTask")}
             </Button>
           </div>
         )}

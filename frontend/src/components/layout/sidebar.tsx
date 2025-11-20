@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/application/stores/auth.store";
 import { useUIStore } from "@/application/stores/ui.store";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import {
   LayoutDashboard,
   CheckSquare,
@@ -19,6 +21,7 @@ import {
 export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const t = useTranslations();
   const { user, logout } = useAuthStore();
   const { isSidebarOpen, toggleSidebar, theme, toggleTheme } = useUIStore();
 
@@ -28,9 +31,13 @@ export function Sidebar() {
   };
 
   const navItems = [
-    { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-    { href: "/tasks", icon: CheckSquare, label: "Tasks" },
-    { href: "/users", icon: Users, label: "Users" },
+    {
+      href: "/dashboard",
+      icon: LayoutDashboard,
+      label: t("navigation.dashboard"),
+    },
+    { href: "/tasks", icon: CheckSquare, label: t("navigation.tasks") },
+    { href: "/users", icon: Users, label: t("navigation.users") },
   ];
 
   return (
@@ -104,6 +111,7 @@ export function Sidebar() {
 
           {/* Footer */}
           <div className="p-4 border-t space-y-2">
+            <LanguageSwitcher />
             <Button
               variant="outline"
               className="w-full justify-start"
@@ -112,12 +120,12 @@ export function Sidebar() {
               {theme === "light" ? (
                 <>
                   <Moon className="h-4 w-4 mr-2" />
-                  Dark Mode
+                  {t("theme.dark")}
                 </>
               ) : (
                 <>
                   <Sun className="h-4 w-4 mr-2" />
-                  Light Mode
+                  {t("theme.light")}
                 </>
               )}
             </Button>
@@ -127,7 +135,7 @@ export function Sidebar() {
               onClick={handleLogout}
             >
               <LogOut className="h-4 w-4 mr-2" />
-              Logout
+              {t("auth.logout")}
             </Button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Task, TaskStatus, TaskPriority } from "@/domain/entities/task.entity";
 import { useDeleteTask } from "@/application/hooks/use-tasks";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,11 +33,12 @@ const priorityColors = {
 };
 
 export function TaskCard({ task }: TaskCardProps) {
+  const t = useTranslations();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const deleteTask = useDeleteTask();
 
   const handleDelete = async () => {
-    if (confirm("Are you sure you want to delete this task?")) {
+    if (confirm(t("tasks.deleteConfirm"))) {
       await deleteTask.mutateAsync(task.id);
     }
   };
@@ -72,14 +74,14 @@ export function TaskCard({ task }: TaskCardProps) {
                 statusColors[task.status]
               }`}
             >
-              {task.status.replace("_", " ")}
+              {t(`tasks.status.${task.status}`)}
             </span>
             <span
               className={`text-xs px-2 py-1 rounded-full ${
                 priorityColors[task.priority]
               }`}
             >
-              {task.priority}
+              {t(`tasks.priority.${task.priority}`)}
             </span>
           </div>
         </CardHeader>
