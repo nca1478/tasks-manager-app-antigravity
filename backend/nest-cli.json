@@ -8,7 +8,7 @@
     "tsConfigPath": "tsconfig.json",
     "assets": [
       {
-        "include": "i18n/**/*",
+        "include": "infrastructure/i18n/**/*",
         "outDir": "dist"
       }
     ]
