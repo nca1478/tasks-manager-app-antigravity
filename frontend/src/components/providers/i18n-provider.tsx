@@ -2,8 +2,8 @@
 
 import { NextIntlClientProvider } from "next-intl";
 import { useLanguageStore } from "@/application/stores/language.store";
-import enMessages from "@/i18n/messages/en.json";
-import esMessages from "@/i18n/messages/es.json";
+import enMessages from "@/infrastructure/i18n/messages/en.json";
+import esMessages from "@/infrastructure/i18n/messages/es.json";
 
 const messages = {
   en: enMessages,
