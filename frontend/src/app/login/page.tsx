@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -22,17 +22,31 @@ import { LogIn } from "lucide-react";
 export default function LoginPage() {
   const router = useRouter();
   const t = useTranslations();
-  const { login, isLoading, error } = useAuthStore();
+  const { login, isLoading, error, clearError } = useAuthStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Clear error when component mounts or when user starts typing
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
+
+  useEffect(() => {
+    if (error) {
+      clearError();
+    }
+  }, [email, password, clearError]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await login({ email, password });
+    e.stopPropagation();
+
+    await login({ email, password });
+
+    // Check if login was successful by checking the store state
+    const authState = useAuthStore.getState();
+    if (authState.isAuthenticated && !authState.error) {
       router.push("/dashboard");
-    } catch (error) {
-      // Error is handled by the store
     }
   };
 

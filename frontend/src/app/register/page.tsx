@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -22,18 +22,32 @@ import { UserPlus } from "lucide-react";
 export default function RegisterPage() {
   const router = useRouter();
   const t = useTranslations();
-  const { register, isLoading, error } = useAuthStore();
+  const { register, isLoading, error, clearError } = useAuthStore();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Clear error when component mounts or when user starts typing
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
+
+  useEffect(() => {
+    if (error) {
+      clearError();
+    }
+  }, [name, email, password, clearError]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await register({ name, email, password });
+    e.stopPropagation();
+
+    await register({ name, email, password });
+
+    // Check if registration was successful by checking the store state
+    const authState = useAuthStore.getState();
+    if (authState.isAuthenticated && !authState.error) {
       router.push("/dashboard");
-    } catch (error) {
-      // Error is handled by the store
     }
   };
 
