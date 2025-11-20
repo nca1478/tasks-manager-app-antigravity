@@ -44,11 +44,19 @@ export const useAuthStore = create<AuthState>()(
             token: response.access_token,
             isAuthenticated: true,
             isLoading: false,
+            error: null,
           });
         } catch (error: any) {
-          const errorMessage = error.response?.data?.message || "Login failed";
-          set({ error: errorMessage, isLoading: false });
-          throw error;
+          const errorMessage =
+            error.response?.data?.message || "Invalid credentials";
+          set({
+            error: errorMessage,
+            isLoading: false,
+            isAuthenticated: false,
+            user: null,
+            token: null,
+          });
+          // Don't throw error, just set it in state
         }
       },
 
@@ -62,12 +70,19 @@ export const useAuthStore = create<AuthState>()(
             token: response.access_token,
             isAuthenticated: true,
             isLoading: false,
+            error: null,
           });
         } catch (error: any) {
           const errorMessage =
             error.response?.data?.message || "Registration failed";
-          set({ error: errorMessage, isLoading: false });
-          throw error;
+          set({
+            error: errorMessage,
+            isLoading: false,
+            isAuthenticated: false,
+            user: null,
+            token: null,
+          });
+          // Don't throw error, just set it in state
         }
       },
 

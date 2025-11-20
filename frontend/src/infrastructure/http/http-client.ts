@@ -42,11 +42,18 @@ httpClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Clear token and redirect to login
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("user");
+      // Only redirect if not already on login/register pages
       if (typeof window !== "undefined") {
-        window.location.href = "/login";
+        const currentPath = window.location.pathname;
+        const isAuthPage =
+          currentPath === "/login" || currentPath === "/register";
+
+        if (!isAuthPage) {
+          // Clear token and redirect to login only if not on auth pages
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("user");
+          window.location.href = "/login";
+        }
       }
     }
     return Promise.reject(error);
