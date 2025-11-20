@@ -1,0 +1,105 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "actions": "Acciones",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "confirm": "Confirmar"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "register": "Registrarse",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "loginTitle": "Bienvenido de Nuevo",
+    "loginSubtitle": "Ingresa tus credenciales para acceder a tu cuenta",
+    "registerTitle": "Crear Cuenta",
+    "registerSubtitle": "Regístrate para comenzar a gestionar tus tareas",
+    "noAccount": "¿No tienes una cuenta?",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "loginSuccess": "Inicio de sesión exitoso",
+    "registerSuccess": "Registro exitoso",
+    "loginError": "Credenciales inválidas",
+    "registerError": "Error en el registro"
+  },
+  "navigation": {
+    "dashboard": "Panel",
+    "tasks": "Tareas",
+    "users": "Usuarios",
+    "profile": "Perfil",
+    "settings": "Configuración"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Bienvenido de nuevo",
+    "totalTasks": "Total de Tareas",
+    "completedTasks": "Completadas",
+    "pendingTasks": "Pendientes",
+    "inProgressTasks": "En Progreso",
+    "overview": "Resumen",
+    "recentTasks": "Tareas Recientes",
+    "welcomeTitle": "Bienvenido a Task Manager",
+    "welcomeDescription": "Gestiona tus tareas de manera eficiente con nuestro moderno sistema de gestión de tareas. Navega a la página de Tareas para crear, editar y organizar tus tareas."
+  },
+  "tasks": {
+    "title": "Tareas",
+    "newTask": "Nueva Tarea",
+    "editTask": "Editar Tarea",
+    "deleteTask": "Eliminar Tarea",
+    "taskTitle": "Título",
+    "taskDescription": "Descripción",
+    "taskStatus": "Estado",
+    "taskPriority": "Prioridad",
+    "taskDueDate": "Fecha de Vencimiento",
+    "noTasks": "No se encontraron tareas",
+    "createSuccess": "Tarea creada exitosamente",
+    "updateSuccess": "Tarea actualizada exitosamente",
+    "deleteSuccess": "Tarea eliminada exitosamente",
+    "deleteConfirm": "¿Estás seguro de que deseas eliminar esta tarea?",
+    "status": {
+      "pending": "Pendiente",
+      "in_progress": "En Progreso",
+      "completed": "Completada"
+    },
+    "priority": {
+      "low": "Baja",
+      "medium": "Media",
+      "high": "Alta"
+    }
+  },
+  "users": {
+    "title": "Usuarios",
+    "newUser": "Nuevo Usuario",
+    "editUser": "Editar Usuario",
+    "deleteUser": "Eliminar Usuario",
+    "userName": "Nombre",
+    "userEmail": "Correo Electrónico",
+    "noUsers": "No se encontraron usuarios",
+    "createSuccess": "Usuario creado exitosamente",
+    "updateSuccess": "Usuario actualizado exitosamente",
+    "deleteSuccess": "Usuario eliminado exitosamente"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro",
+    "toggle": "Cambiar tema"
+  },
+  "language": {
+    "english": "Inglés",
+    "spanish": "Español",
+    "toggle": "Cambiar idioma"
+  }
+}
