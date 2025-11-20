@@ -73,14 +73,34 @@
     "deleteError": "Error al eliminar la tarea",
     "deleteConfirm": "¿Estás seguro de que deseas eliminar esta tarea?",
     "status": {
+      "Pending": "Pendiente",
+      "In Progress": "En Progreso",
+      "Completed": "Completada",
       "pending": "Pendiente",
       "in_progress": "En Progreso",
       "completed": "Completada"
     },
     "priority": {
+      "Low": "Baja",
+      "Medium": "Media",
+      "High": "Alta",
       "low": "Baja",
       "medium": "Media",
       "high": "Alta"
+    },
+    "filters": {
+      "status": "Filtrar por Estado",
+      "priority": "Filtrar por Prioridad",
+      "sortBy": "Ordenar Por",
+      "sortOrder": "Orden",
+      "allStatuses": "Todos los Estados",
+      "allPriorities": "Todas las Prioridades",
+      "createdAt": "Fecha de Creación",
+      "title": "Título",
+      "dueDate": "Fecha de Vencimiento",
+      "newest": "Más Reciente",
+      "oldest": "Más Antiguo",
+      "clear": "Limpiar Filtros"
     }
   },
   "users": {
@@ -95,7 +115,7 @@
     "userEmail": "Correo Electrónico",
     "noUsers": "No se encontraron usuarios",
     "createSuccess": "Usuario creado exitosamente",
-    "updateSuccess": "Usuario actualizado exitosamente",
+    "updateSuccess": "Usuario actual izado exitosamente",
     "deleteSuccess": "Usuario eliminado exitosamente"
   },
   "theme": {

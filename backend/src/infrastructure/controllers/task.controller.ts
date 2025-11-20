@@ -8,11 +8,13 @@ import {
   Delete,
   UseGuards,
   Headers,
+  Query,
 } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { CurrentUser } from "../auth/current-user.decorator";
 import { CreateTaskDto } from "@application/dtos/task/create-task.dto";
 import { UpdateTaskDto } from "@application/dtos/task/update-task.dto";
+import { QueryTasksDto } from "@application/dtos/task/query-tasks.dto";
 import { CreateTaskUseCase } from "@application/use-cases/task/create-task.use-case";
 import { GetTasksByUserUseCase } from "@application/use-cases/task/get-tasks-by-user.use-case";
 import { GetTaskByIdUseCase } from "@application/use-cases/task/get-task-by-id.use-case";
@@ -49,8 +51,11 @@ export class TaskController {
   }
 
   @Get()
-  async findAll(@CurrentUser() user: any) {
-    return this.getTasksByUserUseCase.execute(user.userId);
+  async findAll(
+    @CurrentUser() user: any,
+    @Query() queryTasksDto: QueryTasksDto
+  ) {
+    return this.getTasksByUserUseCase.execute(user.userId, queryTasksDto);
   }
 
   @Get(":id")

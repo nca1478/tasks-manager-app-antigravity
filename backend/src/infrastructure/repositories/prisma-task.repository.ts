@@ -1,7 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { Task, TaskStatus, TaskPriority } from '@domain/entities/task.entity';
-import { TaskRepository } from '@domain/repositories/task.repository';
-import { PrismaService } from '../database/prisma.service';
+import { Injectable } from "@nestjs/common";
+import { Task, TaskStatus, TaskPriority } from "@domain/entities/task.entity";
+import {
+  TaskRepository,
+  QueryTasksOptions,
+} from "@domain/repositories/task.repository";
+import { PrismaService } from "../database/prisma.service";
 
 @Injectable()
 export class PrismaTaskRepository implements TaskRepository {
@@ -29,7 +32,7 @@ export class PrismaTaskRepository implements TaskRepository {
       created.dueDate,
       created.userId,
       created.createdAt,
-      created.updatedAt,
+      created.updatedAt
     );
   }
 
@@ -49,14 +52,14 @@ export class PrismaTaskRepository implements TaskRepository {
       task.dueDate,
       task.userId,
       task.createdAt,
-      task.updatedAt,
+      task.updatedAt
     );
   }
 
   async findByUserId(userId: string): Promise<Task[]> {
     const tasks = await this.prisma.task.findMany({
       where: { userId },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     });
 
     return tasks.map(
@@ -70,14 +73,57 @@ export class PrismaTaskRepository implements TaskRepository {
           task.dueDate,
           task.userId,
           task.createdAt,
-          task.updatedAt,
-        ),
+          task.updatedAt
+        )
+    );
+  }
+
+  async findByUserIdWithFilters(
+    userId: string,
+    options: QueryTasksOptions
+  ): Promise<Task[]> {
+    const where: any = { userId };
+
+    // Apply filters
+    if (options.status) {
+      where.status = options.status;
+    }
+
+    if (options.priority) {
+      where.priority = options.priority;
+    }
+
+    // Apply sorting
+    const orderBy: any = {};
+    const sortBy = options.sortBy || "createdAt";
+    const sortOrder = options.sortOrder || "desc";
+
+    orderBy[sortBy] = sortOrder;
+
+    const tasks = await this.prisma.task.findMany({
+      where,
+      orderBy,
+    });
+
+    return tasks.map(
+      (task) =>
+        new Task(
+          task.id,
+          task.title,
+          task.description,
+          task.status as TaskStatus,
+          task.priority as TaskPriority,
+          task.dueDate,
+          task.userId,
+          task.createdAt,
+          task.updatedAt
+        )
     );
   }
 
   async findAll(): Promise<Task[]> {
     const tasks = await this.prisma.task.findMany({
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     });
 
     return tasks.map(
@@ -91,8 +137,8 @@ export class PrismaTaskRepository implements TaskRepository {
           task.dueDate,
           task.userId,
           task.createdAt,
-          task.updatedAt,
-        ),
+          task.updatedAt
+        )
     );
   }
 
@@ -118,7 +164,7 @@ export class PrismaTaskRepository implements TaskRepository {
       updated.dueDate,
       updated.userId,
       updated.createdAt,
-      updated.updatedAt,
+      updated.updatedAt
     );
   }
 

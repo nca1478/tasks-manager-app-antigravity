@@ -3,11 +3,30 @@ import {
   Task,
   CreateTaskData,
   UpdateTaskData,
+  TaskStatus,
+  TaskPriority,
 } from "@/domain/entities/task.entity";
 
+export interface TaskFilters {
+  status?: TaskStatus;
+  priority?: TaskPriority;
+  sortBy?: "title" | "createdAt" | "priority" | "status" | "dueDate";
+  sortOrder?: "asc" | "desc";
+}
+
 export const taskApi = {
-  getAll: async (): Promise<Task[]> => {
-    const response = await httpClient.get<Task[]>("/tasks");
+  getAll: async (filters?: TaskFilters): Promise<Task[]> => {
+    const params = new URLSearchParams();
+
+    if (filters?.status) params.append("status", filters.status);
+    if (filters?.priority) params.append("priority", filters.priority);
+    if (filters?.sortBy) params.append("sortBy", filters.sortBy);
+    if (filters?.sortOrder) params.append("sortOrder", filters.sortOrder);
+
+    const queryString = params.toString();
+    const url = queryString ? `/tasks?${queryString}` : "/tasks";
+
+    const response = await httpClient.get<Task[]>(url);
     return response.data;
   },
 

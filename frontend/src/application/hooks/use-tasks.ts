@@ -1,13 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { taskApi } from "@/infrastructure/api/task.api";
+import { taskApi, TaskFilters } from "@/infrastructure/api/task.api";
 import { CreateTaskData, UpdateTaskData } from "@/domain/entities/task.entity";
 import { toast } from "sonner";
 import { getTranslation } from "@/infrastructure/i18n/get-translations";
 
-export const useTasks = () => {
+export const useTasks = (filters?: TaskFilters) => {
   return useQuery({
-    queryKey: ["tasks"],
-    queryFn: taskApi.getAll,
+    queryKey: ["tasks", filters],
+    queryFn: () => taskApi.getAll(filters),
   });
 };
 
