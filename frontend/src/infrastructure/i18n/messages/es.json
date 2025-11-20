@@ -68,6 +68,9 @@
     "createSuccess": "Tarea creada exitosamente",
     "updateSuccess": "Tarea actualizada exitosamente",
     "deleteSuccess": "Tarea eliminada exitosamente",
+    "createError": "Error al crear la tarea",
+    "updateError": "Error al actualizar la tarea",
+    "deleteError": "Error al eliminar la tarea",
     "deleteConfirm": "¿Estás seguro de que deseas eliminar esta tarea?",
     "status": {
       "pending": "Pendiente",
@@ -107,5 +110,16 @@
   },
   "validation": {
     "passwordMinLength": "La contraseña debe tener al menos 6 caracteres"
+  },
+  "errors": {
+    "emailAlreadyExists": "El correo electrónico ya existe",
+    "invalidCredentials": "Credenciales inválidas",
+    "loginFailed": "Error al iniciar sesión",
+    "registrationFailed": "Error en el registro",
+    "userNotFound": "Usuario no encontrado",
+    "invalidEmail": "Correo electrónico inválido",
+    "invalidPassword": "Contraseña inválida",
+    "serverError": "Error del servidor",
+    "networkError": "Error de conexión"
   }
 }

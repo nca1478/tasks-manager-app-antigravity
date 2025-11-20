@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/application/stores/auth.store";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { translateErrorMessage } from "@/infrastructure/i18n/error-translator";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,7 +58,7 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
-                {error}
+                {t(translateErrorMessage(error))}
               </div>
             )}
 

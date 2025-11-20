@@ -68,6 +68,9 @@
     "createSuccess": "Task created successfully",
     "updateSuccess": "Task updated successfully",
     "deleteSuccess": "Task deleted successfully",
+    "createError": "Failed to create task",
+    "updateError": "Failed to update task",
+    "deleteError": "Failed to delete task",
     "deleteConfirm": "Are you sure you want to delete this task?",
     "status": {
       "pending": "Pending",
@@ -107,5 +110,16 @@
   },
   "validation": {
     "passwordMinLength": "Password must be at least 6 characters"
+  },
+  "errors": {
+    "emailAlreadyExists": "Email already exists",
+    "invalidCredentials": "Invalid credentials",
+    "loginFailed": "Login failed",
+    "registrationFailed": "Registration failed",
+    "userNotFound": "User not found",
+    "invalidEmail": "Invalid email",
+    "invalidPassword": "Invalid password",
+    "serverError": "Server error",
+    "networkError": "Network error"
   }
 }
