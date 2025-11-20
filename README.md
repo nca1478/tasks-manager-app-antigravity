@@ -25,16 +25,23 @@ Task Manager es una aplicación completa que permite a los usuarios gestionar su
 - ✅ Cambiar estado de tareas (Pending, In Progress, Completed)
 - ✅ Eliminar tareas con confirmación
 - ✅ Visualización en tarjetas con badges de estado y prioridad
-- ✅ Filtros visuales por estado y prioridad
+- ✅ **Filtros avanzados**: Por estado y prioridad
+- ✅ **Ordenamiento**: Por fecha, título, prioridad, estado o fecha de vencimiento
+- ✅ **Orden ascendente/descendente**: Newest first o Oldest first
+- ✅ Botón para limpiar todos los filtros
 - ✅ Relación automática con el usuario autenticado
 
-### 👥 Gestión de Usuarios (CRUD Completo)
+### 👥 Gestión de Usuarios y Perfil
 
 - ✅ Crear usuarios
 - ✅ Ver lista de todos los usuarios
 - ✅ Actualizar información de usuario
 - ✅ Eliminar usuarios
-- ✅ Perfil de usuario actual
+- ✅ **Página de perfil personal**:
+  - Actualizar nombre y email
+  - Cambiar contraseña de forma segura
+  - Validación de contraseña actual
+  - Confirmación de nueva contraseña
 - ✅ Visualización de fecha de registro
 
 ### 🌍 Internacionalización (i18n)
@@ -51,11 +58,14 @@ Task Manager es una aplicación completa que permite a los usuarios gestionar su
 - ✅ Diseño moderno tipo panel administrativo
 - ✅ Tema claro y oscuro con toggle
 - ✅ Diseño responsivo (móvil, tablet, desktop)
+- ✅ **Sidebar colapsable automático en móvil** al navegar
 - ✅ Animaciones suaves y transiciones
-- ✅ Notificaciones toast con Sonner
+- ✅ **Notificaciones toast traducidas** con Sonner
 - ✅ Componentes reutilizables estilo Shadcn
+- ✅ **Componentes Select mejorados** con @radix-ui/react-select
 - ✅ Gradientes y efectos visuales modernos
 - ✅ Iconos con Lucide React
+- ✅ **Spinners de carga** en páginas de autenticación
 
 ### 📊 Dashboard
 
@@ -108,17 +118,22 @@ tasks-manager-app-antigravity/
 │   ├── src/
 │   │   ├── app/                       # Next.js App Router
 │   │   │   ├── dashboard/             # Página de dashboard
-│   │   │   ├── tasks/                 # Página de tareas
+│   │   │   ├── tasks/                 # Página de tareas con filtros
 │   │   │   ├── users/                 # Página de usuarios
+│   │   │   ├── profile/               # Página de perfil personal
 │   │   │   ├── login/                 # Página de login
 │   │   │   ├── register/              # Página de registro
 │   │   │   ├── layout.tsx             # Layout principal
 │   │   │   ├── page.tsx               # Página de inicio
 │   │   │   └── globals.css            # Estilos globales
 │   │   ├── components/                # Componentes de UI
-│   │   │   ├── ui/                    # Componentes base (Button, Card, Input, etc.)
+│   │   │   ├── ui/                    # Componentes base (Button, Card, Input, Select, etc.)
 │   │   │   ├── layout/                # Componentes de layout (Sidebar, Header)
 │   │   │   ├── tasks/                 # Componentes de tareas
+│   │   │   │   ├── task-card.tsx      # Tarjeta de tarea
+│   │   │   │   ├── task-filters.tsx   # Filtros y ordenamiento
+│   │   │   │   ├── create-task-dialog.tsx
+│   │   │   │   └── edit-task-dialog.tsx
 │   │   │   ├── providers/             # Providers (i18n, theme)
 │   │   │   └── language-switcher.tsx  # Selector de idioma
 │   │   ├── domain/                    # Capa de Dominio
@@ -270,28 +285,47 @@ El frontend estará disponible en `http://localhost:3000`
 ### 3. Gestión de Tareas
 
 1. Navega a la sección "Tasks"
-2. Haz clic en "New Task" para crear una tarea
-3. Completa el formulario con:
+2. **Usa los filtros** para organizar tus tareas:
+   - Filtra por estado (Pending, In Progress, Completed)
+   - Filtra por prioridad (Low, Medium, High)
+   - Ordena por fecha, título, prioridad, estado o fecha de vencimiento
+   - Cambia el orden (Newest first / Oldest first)
+   - Limpia todos los filtros con un clic
+3. Haz clic en "New Task" para crear una tarea
+4. Completa el formulario con:
    - Título (requerido)
    - Descripción (opcional)
    - Prioridad (Low, Medium, High)
    - Fecha de vencimiento (opcional)
-4. Edita tareas haciendo clic en el ícono de lápiz
-5. Elimina tareas haciendo clic en el ícono de papelera
+5. Edita tareas haciendo clic en el ícono de lápiz
+6. Elimina tareas haciendo clic en el ícono de papelera
 
-### 4. Ver Usuarios
+### 4. Gestionar Perfil
+
+1. Navega a la sección "Profile" en el sidebar
+2. **Actualizar información personal**:
+   - Modifica tu nombre
+   - Cambia tu email
+   - Haz clic en "Update Profile"
+3. **Cambiar contraseña**:
+   - Ingresa tu contraseña actual
+   - Ingresa la nueva contraseña (mínimo 6 caracteres)
+   - Confirma la nueva contraseña
+   - Haz clic en "Change Password"
+
+### 5. Ver Usuarios
 
 1. Navega a la sección "Users"
 2. Visualiza todos los usuarios registrados
 
-### 5. Cambiar Idioma
+### 6. Cambiar Idioma
 
 1. Haz clic en el botón de idioma (🌐) en el sidebar
 2. Selecciona entre Inglés (English) o Español
 3. La interfaz completa se actualiza automáticamente
 4. El idioma se guarda en localStorage
 
-### 6. Cambiar Tema
+### 7. Cambiar Tema
 
 1. Haz clic en el botón de tema (☀️/🌙) en el sidebar
 2. Alterna entre tema claro y oscuro
@@ -319,11 +353,32 @@ DELETE /api/users/:id      # Eliminar usuario
 ### Tareas (Requiere autenticación)
 
 ```
-GET    /api/tasks          # Obtener tareas del usuario
+GET    /api/tasks          # Obtener tareas del usuario (con filtros opcionales)
 GET    /api/tasks/:id      # Obtener tarea por ID
 POST   /api/tasks          # Crear tarea
 PATCH  /api/tasks/:id      # Actualizar tarea
 DELETE /api/tasks/:id      # Eliminar tarea
+```
+
+**Filtros y ordenamiento** (query parameters opcionales):
+
+```
+GET /api/tasks?status=pending&priority=high&sortBy=dueDate&sortOrder=asc
+```
+
+Parámetros disponibles:
+
+- `status`: pending | in_progress | completed
+- `priority`: low | medium | high
+- `sortBy`: title | createdAt | priority | status | dueDate
+- `sortOrder`: asc | desc
+
+### Perfil (Requiere autenticación)
+
+```
+GET    /api/profile                    # Obtener perfil del usuario actual
+PUT    /api/profile                    # Actualizar perfil
+POST   /api/profile/change-password    # Cambiar contraseña
 ```
 
 ## 🗄️ Modelo de Datos
@@ -761,12 +816,22 @@ Este proyecto demuestra:
 
 ## 🚀 Roadmap
 
-Posibles mejoras futuras:
+### ✅ Completado Recientemente
+
+- ✅ Filtros y ordenamiento de tareas
+- ✅ Página de perfil con actualización de datos
+- ✅ Cambio de contraseña seguro
+- ✅ Mejoras en componentes Select
+- ✅ Sidebar responsive con cierre automático
+- ✅ Notificaciones traducidas
+- ✅ Manejo completo de errores en autenticación
+
+### 🔜 Próximas Mejoras
 
 - [ ] Tests unitarios y de integración
 - [ ] Tests E2E con Playwright
 - [ ] Paginación de tareas y usuarios
-- [ ] Búsqueda y filtros avanzados
+- [ ] Búsqueda de tareas por texto
 - [ ] Categorías y etiquetas para tareas
 - [ ] Notificaciones en tiempo real (WebSockets)
 - [ ] Exportar tareas a PDF/CSV
@@ -778,6 +843,7 @@ Posibles mejoras futuras:
 - [ ] PWA (Progressive Web App)
 - [ ] Modo offline
 - [ ] Integración con servicios externos (Google Calendar, Slack)
+- [ ] Dashboard con gráficos y estadísticas avanzadas
 
 ## 📞 Soporte
 
@@ -792,11 +858,16 @@ Si encuentras algún problema o tienes preguntas:
 - ✅ **Backend**: Completamente funcional
 - ✅ **Frontend**: Completamente funcional
 - ✅ **Autenticación**: Implementada y segura
-- ✅ **CRUD de Tareas**: Completo
+- ✅ **CRUD de Tareas**: Completo con filtros y ordenamiento
 - ✅ **CRUD de Usuarios**: Completo
-- ✅ **Internacionalización**: Inglés y Español
+- ✅ **Gestión de Perfil**: Actualización de datos y cambio de contraseña
+- ✅ **Filtros de Tareas**: Por estado, prioridad, con ordenamiento múltiple
+- ✅ **Internacionalización**: Inglés y Español (100% traducido)
 - ✅ **Temas**: Claro y Oscuro
 - ✅ **Responsive**: Móvil, Tablet, Desktop
+- ✅ **Sidebar Móvil**: Cierre automático al navegar
+- ✅ **Notificaciones**: Toast traducidas y contextuales
+- ✅ **Manejo de Errores**: Completo en autenticación y operaciones
 - ✅ **Arquitectura Hexagonal**: Implementada en ambos lados
 
 ---
