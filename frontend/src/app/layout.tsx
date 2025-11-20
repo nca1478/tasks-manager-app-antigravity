@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { useState } from "react";
+import { I18nProvider } from "@/components/providers/i18n-provider";
 import "./globals.css";
 
 export default function RootLayout({
@@ -33,8 +34,10 @@ export default function RootLayout({
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
-          {children}
-          <Toaster position="top-right" richColors />
+          <I18nProvider>
+            {children}
+            <Toaster position="top-right" richColors />
+          </I18nProvider>
         </QueryClientProvider>
       </body>
     </html>

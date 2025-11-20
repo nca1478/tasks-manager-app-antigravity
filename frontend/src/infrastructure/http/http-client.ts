@@ -9,13 +9,27 @@ export const httpClient = axios.create({
   },
 });
 
-// Request interceptor to add auth token
+// Request interceptor to add auth token and language
 httpClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("access_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // Add language header
+    const languageStorage = localStorage.getItem("language-storage");
+    if (languageStorage) {
+      try {
+        const { state } = JSON.parse(languageStorage);
+        if (state?.locale) {
+          config.headers["Accept-Language"] = state.locale;
+        }
+      } catch (e) {
+        // Ignore parsing errors
+      }
+    }
+
     return config;
   },
   (error) => {
