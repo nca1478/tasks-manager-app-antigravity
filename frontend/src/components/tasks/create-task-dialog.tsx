@@ -14,7 +14,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface CreateTaskDialogProps {
   open: boolean;
@@ -87,19 +93,23 @@ export function CreateTaskDialog({
           <div className="space-y-2">
             <Label htmlFor="priority">{t("tasks.taskPriority")}</Label>
             <Select
-              id="priority"
               value={priority}
-              onChange={(e) => setPriority(e.target.value as TaskPriority)}
+              onValueChange={(value) => setPriority(value as TaskPriority)}
             >
-              <option value={TaskPriority.LOW}>
-                {t("tasks.priority.low")}
-              </option>
-              <option value={TaskPriority.MEDIUM}>
-                {t("tasks.priority.medium")}
-              </option>
-              <option value={TaskPriority.HIGH}>
-                {t("tasks.priority.high")}
-              </option>
+              <SelectTrigger id="priority">
+                <SelectValue placeholder={t("tasks.taskPriority")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={TaskPriority.LOW}>
+                  {t("tasks.priority.low")}
+                </SelectItem>
+                <SelectItem value={TaskPriority.MEDIUM}>
+                  {t("tasks.priority.medium")}
+                </SelectItem>
+                <SelectItem value={TaskPriority.HIGH}>
+                  {t("tasks.priority.high")}
+                </SelectItem>
+              </SelectContent>
             </Select>
           </div>
 

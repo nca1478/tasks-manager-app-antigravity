@@ -14,7 +14,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface EditTaskDialogProps {
   task: Task | null;
@@ -108,38 +114,46 @@ export function EditTaskDialog({
             <div className="space-y-2">
               <Label htmlFor="edit-status">{t("tasks.taskStatus")}</Label>
               <Select
-                id="edit-status"
                 value={status}
-                onChange={(e) => setStatus(e.target.value as TaskStatus)}
+                onValueChange={(value) => setStatus(value as TaskStatus)}
               >
-                <option value={TaskStatus.PENDING}>
-                  {t("tasks.status.pending")}
-                </option>
-                <option value={TaskStatus.IN_PROGRESS}>
-                  {t("tasks.status.in_progress")}
-                </option>
-                <option value={TaskStatus.COMPLETED}>
-                  {t("tasks.status.completed")}
-                </option>
+                <SelectTrigger id="edit-status">
+                  <SelectValue placeholder={t("tasks.taskStatus")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={TaskStatus.PENDING}>
+                    {t("tasks.status.pending")}
+                  </SelectItem>
+                  <SelectItem value={TaskStatus.IN_PROGRESS}>
+                    {t("tasks.status.in_progress")}
+                  </SelectItem>
+                  <SelectItem value={TaskStatus.COMPLETED}>
+                    {t("tasks.status.completed")}
+                  </SelectItem>
+                </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="edit-priority">{t("tasks.taskPriority")}</Label>
               <Select
-                id="edit-priority"
                 value={priority}
-                onChange={(e) => setPriority(e.target.value as TaskPriority)}
+                onValueChange={(value) => setPriority(value as TaskPriority)}
               >
-                <option value={TaskPriority.LOW}>
-                  {t("tasks.priority.low")}
-                </option>
-                <option value={TaskPriority.MEDIUM}>
-                  {t("tasks.priority.medium")}
-                </option>
-                <option value={TaskPriority.HIGH}>
-                  {t("tasks.priority.high")}
-                </option>
+                <SelectTrigger id="edit-priority">
+                  <SelectValue placeholder={t("tasks.taskPriority")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={TaskPriority.LOW}>
+                    {t("tasks.priority.low")}
+                  </SelectItem>
+                  <SelectItem value={TaskPriority.MEDIUM}>
+                    {t("tasks.priority.medium")}
+                  </SelectItem>
+                  <SelectItem value={TaskPriority.HIGH}>
+                    {t("tasks.priority.high")}
+                  </SelectItem>
+                </SelectContent>
               </Select>
             </div>
           </div>
