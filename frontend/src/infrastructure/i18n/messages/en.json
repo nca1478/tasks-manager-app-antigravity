@@ -104,5 +104,8 @@
     "english": "English",
     "spanish": "Spanish",
     "toggle": "Change language"
+  },
+  "validation": {
+    "passwordMinLength": "Password must be at least 6 characters"
   }
 }
