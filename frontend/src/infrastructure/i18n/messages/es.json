@@ -103,6 +103,25 @@
       "clear": "Limpiar Filtros"
     }
   },
+  "profile": {
+    "title": "Perfil",
+    "myProfile": "Mi Perfil",
+    "personalInfo": "Información Personal",
+    "security": "Seguridad",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "currentPassword": "Contraseña Actual",
+    "newPassword": "Nueva Contraseña",
+    "confirmPassword": "Confirmar Nueva Contraseña",
+    "updateProfile": "Actualizar Perfil",
+    "changePassword": "Cambiar Contraseña",
+    "profileUpdated": "Perfil actualizado exitosamente",
+    "passwordChanged": "Contraseña cambiada exitosamente",
+    "updateError": "Error al actualizar perfil",
+    "passwordError": "Error al cambiar contraseña",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "incorrectPassword": "La contraseña actual es incorrecta"
+  },
   "users": {
     "title": "Usuarios",
     "allUsers": "Todos los Usuarios",

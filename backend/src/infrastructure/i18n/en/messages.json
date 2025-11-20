@@ -30,5 +30,16 @@
     "titleRequired": "Title is required",
     "statusInvalid": "Status must be one of: pending, in_progress, completed",
     "priorityInvalid": "Priority must be one of: low, medium, high"
+  },
+  "messages": {
+    "task": {
+      "created": "Task created successfully",
+      "updated": "Task updated successfully",
+      "deleted": "Task deleted successfully"
+    },
+    "profile": {
+      "updated": "Profile updated successfully",
+      "passwordChanged": "Password changed successfully"
+    }
   }
 }

@@ -103,6 +103,25 @@
       "clear": "Clear Filters"
     }
   },
+  "profile": {
+    "title": "Profile",
+    "myProfile": "My Profile",
+    "personalInfo": "Personal Information",
+    "security": "Security",
+    "name": "Name",
+    "email": "Email",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "updateProfile": "Update Profile",
+    "changePassword": "Change Password",
+    "profileUpdated": "Profile updated successfully",
+    "passwordChanged": "Password changed successfully",
+    "updateError": "Failed to update profile",
+    "passwordError": "Failed to change password",
+    "passwordMismatch": "Passwords do not match",
+    "incorrectPassword": "Current password is incorrect"
+  },
   "users": {
     "title": "Users",
     "allUsers": "All Users",

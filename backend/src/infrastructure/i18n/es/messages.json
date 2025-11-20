@@ -30,5 +30,16 @@
     "titleRequired": "El título es requerido",
     "statusInvalid": "El estado debe ser uno de: pending, in_progress, completed",
     "priorityInvalid": "La prioridad debe ser una de: low, medium, high"
+  },
+  "messages": {
+    "task": {
+      "created": "Tarea creada exitosamente",
+      "updated": "Tarea actualizada exitosamente",
+      "deleted": "Tarea eliminada exitosamente"
+    },
+    "profile": {
+      "updated": "Perfil actualizado exitosamente",
+      "passwordChanged": "Contraseña cambiada exitosamente"
+    }
   }
 }

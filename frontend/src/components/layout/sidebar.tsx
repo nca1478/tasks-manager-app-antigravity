@@ -45,6 +45,7 @@ export function Sidebar() {
     },
     { href: "/tasks", icon: CheckSquare, label: t("navigation.tasks") },
     { href: "/users", icon: Users, label: t("navigation.users") },
+    { href: "/profile", icon: User, label: t("navigation.profile") },
   ];
 
   return (
