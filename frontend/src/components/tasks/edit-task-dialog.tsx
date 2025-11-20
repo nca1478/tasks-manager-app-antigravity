@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useUpdateTask } from "@/application/hooks/use-tasks";
 import { Task, TaskPriority, TaskStatus } from "@/domain/entities/task.entity";
 import {
@@ -26,6 +27,7 @@ export function EditTaskDialog({
   open,
   onOpenChange,
 }: EditTaskDialogProps) {
+  const t = useTranslations();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<TaskStatus>(TaskStatus.PENDING);
@@ -75,61 +77,75 @@ export function EditTaskDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Task</DialogTitle>
+          <DialogTitle>{t("tasks.editTask")}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="edit-title">Title *</Label>
+            <Label htmlFor="edit-title">{t("tasks.taskTitle")} *</Label>
             <Input
               id="edit-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter task title"
+              placeholder={t("tasks.taskTitle")}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="edit-description">Description</Label>
+            <Label htmlFor="edit-description">
+              {t("tasks.taskDescription")}
+            </Label>
             <Textarea
               id="edit-description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter task description"
+              placeholder={t("tasks.taskDescription")}
               rows={3}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="edit-status">Status</Label>
+              <Label htmlFor="edit-status">{t("tasks.taskStatus")}</Label>
               <Select
                 id="edit-status"
                 value={status}
                 onChange={(e) => setStatus(e.target.value as TaskStatus)}
               >
-                <option value={TaskStatus.PENDING}>Pending</option>
-                <option value={TaskStatus.IN_PROGRESS}>In Progress</option>
-                <option value={TaskStatus.COMPLETED}>Completed</option>
+                <option value={TaskStatus.PENDING}>
+                  {t("tasks.status.pending")}
+                </option>
+                <option value={TaskStatus.IN_PROGRESS}>
+                  {t("tasks.status.in_progress")}
+                </option>
+                <option value={TaskStatus.COMPLETED}>
+                  {t("tasks.status.completed")}
+                </option>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-priority">Priority</Label>
+              <Label htmlFor="edit-priority">{t("tasks.taskPriority")}</Label>
               <Select
                 id="edit-priority"
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as TaskPriority)}
               >
-                <option value={TaskPriority.LOW}>Low</option>
-                <option value={TaskPriority.MEDIUM}>Medium</option>
-                <option value={TaskPriority.HIGH}>High</option>
+                <option value={TaskPriority.LOW}>
+                  {t("tasks.priority.low")}
+                </option>
+                <option value={TaskPriority.MEDIUM}>
+                  {t("tasks.priority.medium")}
+                </option>
+                <option value={TaskPriority.HIGH}>
+                  {t("tasks.priority.high")}
+                </option>
               </Select>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="edit-dueDate">Due Date</Label>
+            <Label htmlFor="edit-dueDate">{t("tasks.taskDueDate")}</Label>
             <Input
               id="edit-dueDate"
               type="datetime-local"
@@ -144,10 +160,10 @@ export function EditTaskDialog({
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              Cancel
+              {t("common.cancel")}
             </Button>
             <Button type="submit" disabled={updateTask.isPending}>
-              {updateTask.isPending ? "Updating..." : "Update Task"}
+              {updateTask.isPending ? t("common.loading") : t("tasks.editTask")}
             </Button>
           </div>
         </form>

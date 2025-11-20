@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useCreateTask } from "@/application/hooks/use-tasks";
 import { TaskPriority } from "@/domain/entities/task.entity";
 import {
@@ -24,6 +25,7 @@ export function CreateTaskDialog({
   open,
   onOpenChange,
 }: CreateTaskDialogProps) {
+  const t = useTranslations();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState<TaskPriority>(TaskPriority.MEDIUM);
@@ -57,46 +59,52 @@ export function CreateTaskDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create New Task</DialogTitle>
+          <DialogTitle>{t("tasks.newTask")}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="title">Title *</Label>
+            <Label htmlFor="title">{t("tasks.taskTitle")} *</Label>
             <Input
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter task title"
+              placeholder={t("tasks.taskTitle")}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">{t("tasks.taskDescription")}</Label>
             <Textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter task description"
+              placeholder={t("tasks.taskDescription")}
               rows={3}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="priority">Priority</Label>
+            <Label htmlFor="priority">{t("tasks.taskPriority")}</Label>
             <Select
               id="priority"
               value={priority}
               onChange={(e) => setPriority(e.target.value as TaskPriority)}
             >
-              <option value={TaskPriority.LOW}>Low</option>
-              <option value={TaskPriority.MEDIUM}>Medium</option>
-              <option value={TaskPriority.HIGH}>High</option>
+              <option value={TaskPriority.LOW}>
+                {t("tasks.priority.low")}
+              </option>
+              <option value={TaskPriority.MEDIUM}>
+                {t("tasks.priority.medium")}
+              </option>
+              <option value={TaskPriority.HIGH}>
+                {t("tasks.priority.high")}
+              </option>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="dueDate">Due Date</Label>
+            <Label htmlFor="dueDate">{t("tasks.taskDueDate")}</Label>
             <Input
               id="dueDate"
               type="datetime-local"
@@ -111,10 +119,10 @@ export function CreateTaskDialog({
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              Cancel
+              {t("common.cancel")}
             </Button>
             <Button type="submit" disabled={createTask.isPending}>
-              {createTask.isPending ? "Creating..." : "Create Task"}
+              {createTask.isPending ? t("common.loading") : t("tasks.newTask")}
             </Button>
           </div>
         </form>
