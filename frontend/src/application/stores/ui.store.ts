@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface UIState {
   isSidebarOpen: boolean;
@@ -9,28 +10,46 @@ interface UIState {
   setTheme: (theme: "light" | "dark") => void;
 }
 
-export const useUIStore = create<UIState>((set) => ({
-  isSidebarOpen: true,
-  theme: "light",
+export const useUIStore = create<UIState>()(
+  persist(
+    (set) => ({
+      isSidebarOpen: true,
+      theme: "light",
 
-  toggleSidebar: () =>
-    set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+      toggleSidebar: () =>
+        set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
 
-  setSidebarOpen: (open: boolean) => set({ isSidebarOpen: open }),
+      setSidebarOpen: (open: boolean) => set({ isSidebarOpen: open }),
 
-  toggleTheme: () =>
-    set((state) => {
-      const newTheme = state.theme === "light" ? "dark" : "light";
-      if (typeof window !== "undefined") {
-        document.documentElement.classList.toggle("dark", newTheme === "dark");
-      }
-      return { theme: newTheme };
+      toggleTheme: () =>
+        set((state) => {
+          const newTheme = state.theme === "light" ? "dark" : "light";
+          if (typeof window !== "undefined") {
+            document.documentElement.classList.toggle(
+              "dark",
+              newTheme === "dark"
+            );
+          }
+          return { theme: newTheme };
+        }),
+
+      setTheme: (theme: "light" | "dark") => {
+        if (typeof window !== "undefined") {
+          document.documentElement.classList.toggle("dark", theme === "dark");
+        }
+        set({ theme });
+      },
     }),
-
-  setTheme: (theme: "light" | "dark") => {
-    if (typeof window !== "undefined") {
-      document.documentElement.classList.toggle("dark", theme === "dark");
+    {
+      name: "ui-storage",
+      onRehydrateStorage: () => (state) => {
+        if (state && typeof window !== "undefined") {
+          document.documentElement.classList.toggle(
+            "dark",
+            state.theme === "dark"
+          );
+        }
+      },
     }
-    set({ theme });
-  },
-}));
+  )
+);
