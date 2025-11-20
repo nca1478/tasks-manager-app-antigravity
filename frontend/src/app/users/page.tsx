@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/application/stores/auth.store";
 import { useUsers } from "@/application/hooks/use-users";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
@@ -12,6 +13,7 @@ import { format } from "date-fns";
 
 export default function UsersPage() {
   const router = useRouter();
+  const t = useTranslations();
   const { isAuthenticated, _hasHydrated } = useAuthStore();
   const { data: users, isLoading } = useUsers();
 
@@ -33,12 +35,12 @@ export default function UsersPage() {
 
   return (
     <DashboardLayout>
-      <Header title="Users" />
+      <Header title={t("users.title")} />
       <div className="p-6">
         <div className="mb-6">
-          <h3 className="text-lg font-semibold">All Users</h3>
+          <h3 className="text-lg font-semibold">{t("users.allUsers")}</h3>
           <p className="text-sm text-muted-foreground">
-            View all registered users in the system
+            {t("users.allUsersDescription")}
           </p>
         </div>
 
@@ -69,7 +71,10 @@ export default function UsersPage() {
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="h-4 w-4" />
-                    <span>Joined {format(new Date(user.createdAt), "PP")}</span>
+                    <span>
+                      {t("users.joined")}{" "}
+                      {format(new Date(user.createdAt), "PP")}
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -77,7 +82,7 @@ export default function UsersPage() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">No users found</p>
+            <p className="text-muted-foreground">{t("users.noUsers")}</p>
           </div>
         )}
       </div>
