@@ -82,6 +82,9 @@
   },
   "users": {
     "title": "Usuarios",
+    "allUsers": "Todos los Usuarios",
+    "allUsersDescription": "Ver todos los usuarios registrados en el sistema",
+    "joined": "Registrado",
     "newUser": "Nuevo Usuario",
     "editUser": "Editar Usuario",
     "deleteUser": "Eliminar Usuario",

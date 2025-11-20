@@ -82,6 +82,9 @@
   },
   "users": {
     "title": "Users",
+    "allUsers": "All Users",
+    "allUsersDescription": "View all registered users in the system",
+    "joined": "Joined",
     "newUser": "New User",
     "editUser": "Edit User",
     "deleteUser": "Delete User",
