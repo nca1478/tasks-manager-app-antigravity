@@ -1,0 +1,34 @@
+{
+  "auth": {
+    "emailAlreadyExists": "Email already exists",
+    "invalidCredentials": "Invalid credentials",
+    "userNotFound": "User not found",
+    "unauthorized": "Unauthorized",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful"
+  },
+  "user": {
+    "notFound": "User not found",
+    "created": "User created successfully",
+    "updated": "User updated successfully",
+    "deleted": "User deleted successfully",
+    "cannotDeleteSelf": "You cannot delete yourself"
+  },
+  "task": {
+    "notFound": "Task not found",
+    "created": "Task created successfully",
+    "updated": "Task updated successfully",
+    "deleted": "Task deleted successfully",
+    "unauthorized": "You are not authorized to access this task"
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "emailInvalid": "Email must be a valid email address",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "nameRequired": "Name is required",
+    "titleRequired": "Title is required",
+    "statusInvalid": "Status must be one of: pending, in_progress, completed",
+    "priorityInvalid": "Priority must be one of: low, medium, high"
+  }
+}

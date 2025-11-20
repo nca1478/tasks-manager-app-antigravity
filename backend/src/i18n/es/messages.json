@@ -1,0 +1,34 @@
+{
+  "auth": {
+    "emailAlreadyExists": "El correo electrónico ya existe",
+    "invalidCredentials": "Credenciales inválidas",
+    "userNotFound": "Usuario no encontrado",
+    "unauthorized": "No autorizado",
+    "loginSuccess": "Inicio de sesión exitoso",
+    "registerSuccess": "Registro exitoso"
+  },
+  "user": {
+    "notFound": "Usuario no encontrado",
+    "created": "Usuario creado exitosamente",
+    "updated": "Usuario actualizado exitosamente",
+    "deleted": "Usuario eliminado exitosamente",
+    "cannotDeleteSelf": "No puedes eliminarte a ti mismo"
+  },
+  "task": {
+    "notFound": "Tarea no encontrada",
+    "created": "Tarea creada exitosamente",
+    "updated": "Tarea actualizada exitosamente",
+    "deleted": "Tarea eliminada exitosamente",
+    "unauthorized": "No estás autorizado para acceder a esta tarea"
+  },
+  "validation": {
+    "emailRequired": "El correo electrónico es requerido",
+    "emailInvalid": "El correo electrónico debe ser válido",
+    "passwordRequired": "La contraseña es requerida",
+    "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+    "nameRequired": "El nombre es requerido",
+    "titleRequired": "El título es requerido",
+    "statusInvalid": "El estado debe ser uno de: pending, in_progress, completed",
+    "priorityInvalid": "La prioridad debe ser una de: low, medium, high"
+  }
+}
