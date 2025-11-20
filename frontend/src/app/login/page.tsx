@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/application/stores/auth.store";
+import { useUIStore } from "@/application/stores/ui.store";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { translateErrorMessage } from "@/infrastructure/i18n/error-translator";
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LogIn } from "lucide-react";
+import { LogIn, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,6 +26,24 @@ export default function LoginPage() {
   const { login, isLoading, error, clearError } = useAuthStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Wait for theme to hydrate (only on first load)
+  useEffect(() => {
+    const hasHydrated = sessionStorage.getItem("theme-hydrated");
+
+    if (hasHydrated) {
+      // Already hydrated in this session, show immediately
+      setIsHydrated(true);
+    } else {
+      // First load, wait for theme to apply
+      const timer = setTimeout(() => {
+        setIsHydrated(true);
+        sessionStorage.setItem("theme-hydrated", "true");
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // Clear error when component mounts or when user starts typing
   useEffect(() => {
@@ -49,6 +68,15 @@ export default function LoginPage() {
       router.push("/dashboard");
     }
   };
+
+  // Show loading spinner while hydrating
+  if (!isHydrated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4">
