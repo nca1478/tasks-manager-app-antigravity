@@ -64,6 +64,8 @@
     "taskStatus": "Status",
     "taskPriority": "Priority",
     "taskDueDate": "Due Date",
+    "dueLabel": "Due",
+    "createdLabel": "Created",
     "noTasks": "No tasks found",
     "createSuccess": "Task created successfully",
     "updateSuccess": "Task updated successfully",

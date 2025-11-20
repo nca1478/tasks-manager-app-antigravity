@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { Task, TaskStatus, TaskPriority } from "@/domain/entities/task.entity";
 import { useDeleteTask } from "@/application/hooks/use-tasks";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2, Calendar, Clock } from "lucide-react";
-import { format } from "date-fns";
 import { EditTaskDialog } from "./edit-task-dialog";
 
 interface TaskCardProps {
@@ -34,6 +33,7 @@ const priorityColors = {
 
 export function TaskCard({ task }: TaskCardProps) {
   const t = useTranslations();
+  const format = useFormatter();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const deleteTask = useDeleteTask();
 
@@ -95,12 +95,28 @@ export function TaskCard({ task }: TaskCardProps) {
             {task.dueDate && (
               <div className="flex items-center gap-1">
                 <Calendar className="h-3 w-3" />
-                <span>Due: {format(new Date(task.dueDate), "PPp")}</span>
+                <span>
+                  {t("tasks.dueLabel")}:{" "}
+                  {format.dateTime(new Date(task.dueDate), {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  })}
+                </span>
               </div>
             )}
             <div className="flex items-center gap-1">
               <Clock className="h-3 w-3" />
-              <span>Created: {format(new Date(task.createdAt), "PP")}</span>
+              <span>
+                {t("tasks.createdLabel")}:{" "}
+                {format.dateTime(new Date(task.createdAt), {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </span>
             </div>
           </div>
         </CardContent>

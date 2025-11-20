@@ -64,6 +64,8 @@
     "taskStatus": "Estado",
     "taskPriority": "Prioridad",
     "taskDueDate": "Fecha de Vencimiento",
+    "dueLabel": "Vence",
+    "createdLabel": "Creada",
     "noTasks": "No se encontraron tareas",
     "createSuccess": "Tarea creada exitosamente",
     "updateSuccess": "Tarea actualizada exitosamente",
