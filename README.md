@@ -235,6 +235,9 @@ npm run prisma:generate
 # Ejecutar migraciones
 npm run prisma:migrate
 
+# Preparar base de datos (forma rapida)
+npm run prisma:setup
+
 # Iniciar servidor de desarrollo
 npm run start:dev
 ```
@@ -266,6 +269,159 @@ npm run dev
 ```
 
 El frontend estará disponible en `http://localhost:3000`
+
+### 4. Instalación y configuración (Producción)
+
+Esta sección describe cómo desplegar la aplicación completa en producción utilizando servicios gratuitos o de bajo costo.
+
+#### Stack de Producción
+
+- **Frontend**: Vercel (Next.js)
+- **Backend**: Render (NestJS)
+- **Base de Datos**: Neon Tech (PostgreSQL Serverless)
+
+#### 1. Configurar Base de Datos en Neon Tech
+
+1. **Crear cuenta en Neon Tech**:
+
+   - Visita [https://neon.tech](https://neon.tech)
+   - Regístrate con GitHub, Google o email
+
+2. **Crear un nuevo proyecto**:
+
+   - Haz clic en "Create Project"
+   - Nombre del proyecto: `taskmanager-production`
+   - Región: Selecciona la más cercana a tus usuarios
+   - PostgreSQL version: 16 (recomendado)
+
+3. **Obtener la cadena de conexión**:
+
+   - En el dashboard del proyecto, copia la **Connection String**
+   - Formato: `postgresql://[user]:[password]@[host]/[database]?sslmode=require`
+   - Guarda esta URL, la necesitarás para el backend
+
+4. **Configurar base de datos** (opcional):
+   - Neon crea automáticamente una base de datos
+   - Puedes usar Prisma Studio localmente para verificar la estructura
+
+#### 2. Desplegar Backend en Render
+
+1. **Preparar el repositorio**:
+
+   - Asegúrate de que tu código esté en GitHub
+   - El backend debe estar en la carpeta `backend/`
+
+2. **Crear cuenta en Render**:
+
+   - Visita [https://render.com](https://render.com)
+   - Regístrate con GitHub
+
+3. **Crear nuevo Web Service**:
+
+   - Dashboard → "New" → "Web Service"
+   - Conecta tu repositorio de GitHub
+   - Configuración:
+     - **Name**: `taskmanager-backend`
+     - **Region**: Selecciona la más cercana
+     - **Branch**: `main` (o tu rama principal)
+     - **Root Directory**: `backend`
+     - **Runtime**: `Node`
+     - **Build Command**: `npm install && npm run build && npx prisma generate && npx prisma migrate deploy`
+     - **Start Command**: `npm run start:prod`
+     - **Plan**: Free (o el que prefieras)
+
+4. **Configurar Variables de Entorno**:
+
+   - En la sección "Environment" del servicio, agrega:
+
+   ```env
+   DATABASE_URL=postgresql://[tu-conexion-de-neon]?sslmode=require
+   JWT_SECRET=tu-super-secreto-jwt-cambia-esto-en-produccion-usa-algo-muy-seguro
+   JWT_EXPIRATION=7d
+   PORT=3001
+   NODE_ENV=production
+   FRONTEND_URL=https://tu-app.vercel.app
+   ```
+
+5. **Desplegar**:
+
+   - Haz clic en "Create Web Service"
+   - Render automáticamente construirá y desplegará tu backend
+   - Espera a que el estado sea "Live"
+   - Copia la URL de tu servicio (ej: `https://taskmanager-backend.onrender.com`)
+
+6. **Verificar el despliegue**:
+   - Accede a `https://tu-backend.onrender.com/api`
+   - Deberías ver una respuesta del servidor
+
+**Nota importante sobre Render Free Tier**:
+
+- El plan gratuito pone el servicio en "sleep" después de 15 minutos de inactividad
+- La primera petición después del sleep puede tardar 30-60 segundos
+- Para producción real, considera el plan Starter ($7/mes) que mantiene el servicio activo
+
+#### 3. Desplegar Frontend en Vercel
+
+1. **Preparar el repositorio**:
+
+   - Asegúrate de que el frontend esté en la carpeta `frontend/`
+
+2. **Crear cuenta en Vercel**:
+
+   - Visita [https://vercel.com](https://vercel.com)
+   - Regístrate con GitHub
+
+3. **Importar proyecto**:
+
+   - Dashboard → "Add New" → "Project"
+   - Selecciona tu repositorio de GitHub
+   - Vercel detectará automáticamente que es un proyecto Next.js
+
+4. **Configurar el proyecto**:
+
+   - **Framework Preset**: Next.js (detectado automáticamente)
+   - **Root Directory**: `frontend`
+   - **Build Command**: `npm run build` (por defecto)
+   - **Output Directory**: `.next` (por defecto)
+   - **Install Command**: `npm install` (por defecto)
+
+5. **Configurar Variables de Entorno**:
+
+   - En "Environment Variables", agrega:
+
+   ```env
+   NEXT_PUBLIC_API_URL=https://tu-backend.onrender.com/api
+   ```
+
+   - Reemplaza `tu-backend.onrender.com` con la URL real de tu backend en Render
+
+6. **Desplegar**:
+
+   - Haz clic en "Deploy"
+   - Vercel construirá y desplegará automáticamente
+   - Espera a que termine (usualmente 1-2 minutos)
+   - Copia la URL de producción (ej: `https://tu-app.vercel.app`)
+
+7. **Verificar el despliegue**:
+
+   - Accede a tu URL de Vercel
+   - Prueba el registro y login
+   - Crea algunas tareas para verificar la conexión con el backend
+
+8. **Actualizar variable de entorno en el Backend (Render)**:
+
+   - Ahora que tienes la URL de tu frontend en Vercel, debes actualizar la configuración de CORS en el backend
+   - Ve a tu servicio en Render (Dashboard → `taskmanager-backend`)
+   - En la sección "Environment", actualiza la variable:
+
+   ```env
+   FRONTEND_URL=https://tu-app.vercel.app
+   ```
+
+   - Reemplaza `tu-app.vercel.app` con la URL real de tu aplicación en Vercel
+   - Guarda los cambios
+   - Render automáticamente redesplegará el backend con la nueva configuración
+   - Esto es **crucial** para que CORS funcione correctamente y el frontend pueda comunicarse con el backend
 
 ## 🚀 Uso de la Aplicación
 
