@@ -14,10 +14,10 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "predeploy": "npm run prisma:setup && npm run build",
-    "prisma:generate": "npx prisma generate",
-    "prisma:migrate": "npx prisma migrate dev",
-    "prisma:studio": "npx prisma studio",
-    "prisma:deploy": "npx prisma migrate deploy",
+    "prisma:generate": "npx prisma@6.1.0 generate",
+    "prisma:migrate": "npx prisma@6.1.0 migrate dev",
+    "prisma:studio": "npx prisma@6.1.0 studio",
+    "prisma:deploy": "npx prisma@6.1.0 migrate deploy",
     "prisma:setup": "npm run prisma:generate && npm run prisma:deploy"
   },
   "dependencies": {
